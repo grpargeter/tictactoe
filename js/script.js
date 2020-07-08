@@ -9,6 +9,16 @@ let currentPlayer = "Red";
 console.log(currentPlayer);
 
 const cellElements = document.querySelectorAll(".cell");
+//reset button
+
+const resetBtn = document.querySelector("#reset");
+resetBtn.addEventListener("click", resetfunction);
+
+//function reset
+function resetfunction() {
+  location.reload();
+}
+console.log(resetBtn);
 
 //add event listener
 cellElements.forEach((cell) => {
