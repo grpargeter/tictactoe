@@ -3,7 +3,7 @@
 //player 1 always starts first and is red
 
 let currentPlayer = "Red";
-
+document.querySelector(".currentPlayer").innerHTML = `${currentPlayer}'s turn`;
 // playerSelection();
 
 console.log(currentPlayer);
@@ -18,7 +18,7 @@ resetBtn.addEventListener("click", resetfunction);
 function resetfunction() {
   location.reload();
 }
-console.log(resetBtn);
+//console.log(resetBtn);
 
 //add event listener
 cellElements.forEach((cell) => {
@@ -41,7 +41,6 @@ let gameResults = [
 function handleClick(clickedCellEvent) {
   const clickedCell = clickedCellEvent.target;
   const clickedCellIndex = clickedCell.getAttribute("data-cell-index");
-
   //   console.log(clickedCellIndex);
   if (currentPlayer === "Red") {
     clickedCell.classList.add("red");
@@ -55,6 +54,9 @@ function handleClick(clickedCellEvent) {
   //   console.log(gameResults);
   console.table(gameResults);
   playerSelection();
+  document.querySelector(
+    ".currentPlayer"
+  ).innerHTML = `${currentPlayer}'s turn`;
   //   console.log(document.getElementById.value);
 }
 
