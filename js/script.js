@@ -5,6 +5,7 @@
 let currentPlayer = "Red";
 const currentPlayerMsg = document.querySelector(".currentPlayerMsg");
 
+// document.querySelector(".currentPlayer").innerHTML = `${currentPlayer}'s turn!`;
 currentPlayerMsg.innerHTML = `${currentPlayer}'s turn`;
 
 // playerSelection();
@@ -22,7 +23,7 @@ function resetfunction() {
   location.reload();
 }
 //console.log(resetBtn);
-
+let gameStatusActive = true;
 //add event listener
 cellElements.forEach((cell) => {
   cell.addEventListener("click", handleClick, { once: true });
@@ -52,12 +53,21 @@ function handleClick(clickedCellEvent) {
   }
   arrayIndex = clickedCellIndex.split("");
   //   console.log(arrayIndex);
+
   gameResults[arrayIndex[0]][arrayIndex[1]] = currentPlayer;
   currentPlayerMsg.innerHTML = `${currentPlayer}'s turn`;
+
   winLogic();
+
   //   console.log(gameResults);
   console.table(gameResults);
   playerSelection();
+  if (gameStatusActive === true) {
+    console.log(gameStatusActive);
+    currentPlayerMsg.innerHTML = `${currentPlayer}'s turn`;
+  } else {
+    currentPlayerMsg.innerHTML = winnerMsg;
+  }
 
   //   console.log(document.getElementById.value);
 }
@@ -78,56 +88,64 @@ function winLogic() {
     gameResults[0][0] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on row 1!`;
+    winnerMsg = `${currentPlayer} is the winner on row 1!`;
+    gameStatusActive = false;
   } else if (
     gameResults[1][0] === gameResults[1][1] &&
     gameResults[1][1] === gameResults[1][2] &&
     gameResults[1][0] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on row 2!`;
+    winnerMsg = `${currentPlayer} is the winner on row 2!`;
+    gameStatusActive = false;
   } else if (
     gameResults[2][0] === gameResults[2][1] &&
     gameResults[2][1] === gameResults[2][2] &&
     gameResults[2][0] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on row 3!`;
+    winnerMsg = `${currentPlayer} is the winner on row 3!`;
+    gameStatusActive = false;
   } else if (
     gameResults[0][0] === gameResults[1][0] &&
     gameResults[1][0] === gameResults[2][0] &&
     gameResults[0][0] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on column 1!`;
+    winnerMsg = `${currentPlayer} is the winner on column 1!`;
+    gameStatusActive = false;
   } else if (
     gameResults[0][1] === gameResults[1][1] &&
     gameResults[1][1] === gameResults[2][1] &&
     gameResults[0][1] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on column 2!`;
+    winnerMsg = `${currentPlayer} is the winner on column 2!`;
+    gameStatusActive = false;
   } else if (
     gameResults[0][2] === gameResults[1][2] &&
     gameResults[1][2] === gameResults[2][2] &&
     gameResults[0][2] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on column 3!`;
+    winnerMsg = `${currentPlayer} is the winner on column 3!`;
+    gameStatusActive = false;
   } else if (
     gameResults[0][0] === gameResults[1][1] &&
     gameResults[1][1] === gameResults[2][2] &&
     gameResults[0][0] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on diagonal left!`;
+    winnerMsg = `${currentPlayer} is the winner on diagonal left!`;
+    gameStatusActive = false;
   } else if (
     gameResults[0][2] === gameResults[1][1] &&
     gameResults[1][1] === gameResults[2][0] &&
     gameResults[0][2] !== ""
   ) {
     removeEvents();
-    currentPlayerMsg.innerHTML = `${currentPlayer} is the winner on diagonal right!`;
+    winnerMsg = `${currentPlayer} is the winner on diagonal right!`;
+    gameStatusActive = false;
   } else {
     console.log("no winner yet");
   }
