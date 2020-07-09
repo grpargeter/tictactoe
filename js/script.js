@@ -14,7 +14,7 @@ console.log(currentPlayer);
 
 const cellElements = document.querySelectorAll(".cell");
 //reset button
-
+let counter = 0;
 const resetBtn = document.querySelector("#reset");
 resetBtn.addEventListener("click", resetfunction);
 
@@ -41,25 +41,23 @@ let gameResults = [
   ["", "", ""],
 ];
 //console.log(gameResults);
+//Function to handle each click
 
 function handleClick(clickedCellEvent) {
   const clickedCell = clickedCellEvent.target;
   const clickedCellIndex = clickedCell.getAttribute("data-cell-index");
-  //   console.log(clickedCellIndex);
   if (currentPlayer === "Red") {
     clickedCell.classList.add("red");
   } else {
     clickedCell.classList.add("blue");
   }
   arrayIndex = clickedCellIndex.split("");
-  //   console.log(arrayIndex);
 
   gameResults[arrayIndex[0]][arrayIndex[1]] = currentPlayer;
   currentPlayerMsg.innerHTML = `${currentPlayer}'s turn`;
-
+  counter++;
   winLogic();
 
-  //   console.log(gameResults);
   console.table(gameResults);
   playerSelection();
   if (gameStatusActive === true) {
@@ -71,17 +69,15 @@ function handleClick(clickedCellEvent) {
 
   //   console.log(document.getElementById.value);
 }
-
-//console.log(cellElements);
+//Change player turns function
 
 function playerSelection() {
   currentPlayer = currentPlayer === "Red" ? "Blue" : "Red";
-  //statusDisplay.innerHTML = currentPlayerTurn();
 }
+
+//Determine winner logic
+
 function winLogic() {
-  console.log(gameResults[0][0]);
-  console.log(gameResults[0][1]);
-  console.log(gameResults[0][2]);
   if (
     gameResults[0][0] === gameResults[0][1] &&
     gameResults[0][1] === gameResults[0][2] &&
@@ -136,7 +132,7 @@ function winLogic() {
     gameResults[0][0] !== ""
   ) {
     removeEvents();
-    winnerMsg = `${currentPlayer} is the winner on diagonal left!`;
+    winnerMsg = `${currentPlayer} is the winner on diagonal left to right!`;
     gameStatusActive = false;
   } else if (
     gameResults[0][2] === gameResults[1][1] &&
@@ -144,7 +140,10 @@ function winLogic() {
     gameResults[0][2] !== ""
   ) {
     removeEvents();
-    winnerMsg = `${currentPlayer} is the winner on diagonal right!`;
+    winnerMsg = `${currentPlayer} is the winner on diagonal right to left!`;
+    gameStatusActive = false;
+  } else if (counter === 9) {
+    winnerMsg = `Game is a tie! Try Again!`;
     gameStatusActive = false;
   } else {
     console.log("no winner yet");
